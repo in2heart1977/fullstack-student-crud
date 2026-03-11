@@ -1,0 +1,42 @@
+
+server:
+  port: 8080 # กำหนด Port ของโปรเจกต์
+
+spring:
+
+  application:
+    name: fullstack
+
+  # --- 1. การเชื่อมต่อ MySQL Database ---
+  datasource:
+    url: jdbc:mysql://localhost:3306/fullstack_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # --- 2. การตั้งค่า JPA / Hibernate ---
+  jpa:
+    hibernate:
+      ddl-auto: update # สร้าง/แก้ไขตารางอัตโนมัติตาม Entity (ใช้ validate บน Production)
+    show-sql: true # แสดง SQL ใน Console
+    properties:
+      hibernate:
+        format_sql: true # จัดรูปแบบ SQL ให้สวยงาม
+        dialect: org.hibernate.dialect.MySQL8Dialect # ระบุ Dialect สำหรับ MySQL 8+
+    open-in-view: false # ป้องกันปัญหา Performance (Anti-pattern) ในโปรเจกต์ขนาดใหญ่
+
+  # --- 3. การจัดการ JSON (Jackson) ---
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false # แสดงวันที่เป็น ISO-8601 (เช่น 2023-10-27) แทนตัวเลข Timestamp
+
+# --- 4. การตั้งค่า Logging (ช่วย Debug ค่าใน SQL) ---
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE # ดูค่า Parameters ที่ส่งเข้าไปใน Query
+

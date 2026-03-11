@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/* เพิ่ม Font สวยๆ ให้ Portfolio (Option) */
+@import url('https://fonts.googleapis.com');
+
+:root {
+  font-family: 'Inter', 'Kanit', sans-serif;
+}
+
+body {
+  background-color: #f8fafc; /* สีพื้นหลังนวลๆ */
+}
